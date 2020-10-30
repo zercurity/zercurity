@@ -1,0 +1,140 @@
+version: '3'
+services:
+  backend:
+    restart: always
+    image: ghcr.io/zercurity/backend:latest
+    hostname: backend.$ZERCURITY_DOMAIN
+    env_file:
+    - production.env
+    links:
+    - postgres
+    depends_on:
+    - migrations
+    - scheduler
+    networks:
+    - zercurity
+    environment:
+    - PYTHONPATH=.:/opt/python:/var/runtime:/var/task/run
+    - PYTHONUNBUFFERED=0
+    volumes:
+    - certs:/var/task/run/libs/resources/certs
+    - downloads:/tmp/zercurity
+  frontend:
+    restart: always
+    image: ghcr.io/zercurity/frontend:latest
+    hostname: frontend.$ZERCURITY_DOMAIN
+    env_file:
+    - production.env
+    networks:
+    - zercurity
+  postgres:
+    restart: always
+    image: ghcr.io/zercurity/postgres:latest
+    environment:
+    - POSTGRES_USER=$DB_USERNAME
+    - POSTGRES_PASSWORD=$DB_PASSWORD
+    - POSTGRES_DB=$DB_DATABASE
+    - PGDATA=/var/lib/postgresql/data/zercurity
+    hostname: postgres.$ZERCURITY_DOMAIN
+    env_file:
+    - production.env
+    volumes:
+    - postgres:/var/lib/postgresql/data
+    networks:
+    - zercurity
+  nginx:
+    restart: always
+    image: ghcr.io/zercurity/nginx:latest
+    hostname: $ZERCURITY_DOMAIN
+    env_file:
+    - production.env
+    ports:
+    - "80:80"
+    - "443:443"
+    links:
+    - backend
+    - frontend
+    depends_on:
+    - backend
+    - frontend
+    networks:
+      zercurity:
+          aliases:
+          - download.$ZERCURITY_DOMAIN
+          - nginx.$ZERCURITY_DOMAIN
+          - app.$ZERCURITY_DOMAIN
+          - api.$ZERCURITY_DOMAIN
+    volumes:
+    - certs:/etc/ssl/$ZERCURITY_DOMAIN
+    - downloads:/usr/share/nginx/html/download
+  migrations:
+    restart: on-failure
+    image: ghcr.io/zercurity/migrations:latest
+    hostname: migrations.$ZERCURITY_DOMAIN
+    env_file:
+    - production.env
+    links:
+    - postgres
+    depends_on:
+    - postgres
+    networks:
+    - zercurity
+  scheduler:
+    restart: on-failure
+    image: ghcr.io/zercurity/scheduler:latest
+    hostname: scheduler.$ZERCURITY_DOMAIN
+    env_file:
+    - production.env
+    depends_on:
+    - redis
+    networks:
+    - zercurity
+    environment:
+    - PYTHONUNBUFFERED=0
+  workers:
+    restart: on-failure
+    image: ghcr.io/zercurity/workers:latest
+    hostname: workers.$ZERCURITY_DOMAIN
+    env_file:
+    - production.env
+    depends_on:
+    - scheduler
+    networks:
+    - zercurity
+    environment:
+    - PYTHONUNBUFFERED=0
+  # https://hub.docker.com/r/namshi/smtp/
+  # Provides support for SES, GMail etc as an email forwarder
+  mailer:
+    restart: on-failure
+    image: namshi/smtp
+    hostname: mailer.$ZERCURITY_DOMAIN
+    networks:
+    - zercurity
+  redis:
+    restart: on-failure
+    image: redis:latest
+    hostname: redis.$ZERCURITY_DOMAIN
+    networks:
+    - zercurity
+networks:
+  zercurity:
+volumes:
+  certs:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: /home/admin/certs/$ZERCURITY_DOMAIN
+  downloads:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: /home/admin/data/backend/download.$ZERCURITY_DOMAIN
+  postgres:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: /home/admin/data/postgres
