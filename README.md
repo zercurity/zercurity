@@ -15,7 +15,7 @@ Once installed. Run setup.sh this simply configures the `production.env` file.
 Once configured start the containers like so:
 
 ````
-docker-compose --env-file ../dev_local.env up
+docker-compose --env-file ../production.env up
 ````
 
 Zercurity should now be accessible via `https://zercurity.local`

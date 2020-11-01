@@ -107,13 +107,13 @@ services:
   # Provides support for SES, GMail etc as an email forwarder
   mailer:
     restart: on-failure
-    image: namshi/smtp
+    image: ghcr.io/zercurity/mailer:latest
     hostname: mailer.$ZERCURITY_DOMAIN
     networks:
     - zercurity
   redis:
     restart: on-failure
-    image: redis:latest
+    image: ghcr.io/zercurity/redis:latest
     hostname: redis.$ZERCURITY_DOMAIN
     networks:
     - zercurity
