@@ -3,7 +3,6 @@ set -e
 
 INSTALL_PATH="/var/lib/zercurity"
 ENV_FILE="$INSTALL_PATH/production.env"
-SYSTEM_SERVICE="/etc/systemd/system/zercurity.service"
 
 if [[ ! -f "$ENV_FILE" ]]; then
   echo "Please run ./setup.sh first."

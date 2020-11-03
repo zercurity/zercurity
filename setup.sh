@@ -1,3 +1,4 @@
+
 #!/bin/bash
 set -e
 
@@ -31,6 +32,11 @@ Please enter one now .."
   echo "ZERCURITY_DOMAIN=$ZERCURITY_DOMAIN" | sudo tee -a "$ENV_FILE"
 fi
 
+if [[ -z "${SECRET}" ]]; then
+  ZERCURITY_SECRET=$(tr -dc 'a-zA-Z0-9' < /dev/urandom | fold -w 32 | head -n 1)
+  export SECRET=$ZERCURITY_SECRET
+  echo "SECRET=$ZERCURITY_SECRET" | sudo tee -a "$ENV_FILE"
+fi
 
 echo "Starting up as \"$ZERCURITY_DOMAIN\" .."
 
