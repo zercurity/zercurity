@@ -125,16 +125,16 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: /home/admin/certs/$ZERCURITY_DOMAIN
+      device: /var/lib/zercurity/certs/$ZERCURITY_DOMAIN
   downloads:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: /home/admin/data/backend/download.$ZERCURITY_DOMAIN
+      device: /var/lib/zercurity/data/backend/download.$ZERCURITY_DOMAIN
   postgres:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: /home/admin/data/postgres
+      device: /var/lib/zercurity/data/postgres

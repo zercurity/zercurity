@@ -2,31 +2,31 @@
 # systemctl daemon-reload
 # systemctl enable zercurity
 # systemctl start zercurity
-# systemctl restart zercurity
 # systemctl stop zercurity
+# systemctl restart zercurity
 [Unit]
-Description=%i service with docker compose
+Description=Zercurity service with docker compose
 Requires=docker.service
 After=docker.service
 
 [Service]
 Restart=always
-WorkingDirectory=/home/admin
-EnvironmentFile=/home/admin/production.env
-User=admin
+WorkingDirectory=/var/lib/zercurity
+EnvironmentFile=/var/lib/zercurity/production.env
+User=root
 
 # Remove old containers, images and volumes
-ExecStartPre=/usr/local/bin/docker-compose down -v
-ExecStartPre=/usr/local/bin/docker-compose rm -fv
-ExecStartPre=-/bin/bash -c 'docker volume ls -qf "name=%i_" | xargs docker volume rm'
-ExecStartPre=-/bin/bash -c 'docker network ls -qf "name=%i_" | xargs docker network rm'
-ExecStartPre=-/bin/bash -c 'docker ps -aqf "name=%i_*" | xargs docker rm'
+ExecStartPre=/usr/local/bin/docker-compose --env-file /var/lib/zercurity/production.env down -v
+ExecStartPre=/usr/local/bin/docker-compose --env-file /var/lib/zercurity/production.env rm -fv
+ExecStartPre=-/bin/bash -c 'docker volume rm $(docker volume ls -qf "name=zercurity")'
+ExecStartPre=-/bin/bash -c 'docker network rm $(docker network ls -qf "name=zercurity")'
+ExecStartPre=-/bin/bash -c 'docker rm $(docker ps -aqf "name=zercurity")'
 
 # Compose up
-ExecStart=/usr/local/bin/docker-compose up
+ExecStart=/usr/local/bin/docker-compose --env-file /var/lib/zercurity/production.env up
 
 # Compose down, remove containers and volumes
-ExecStop=/usr/local/bin/docker-compose down -v
+ExecStop=/usr/local/bin/docker-compose --env-file /var/lib/zercurity/production.env down -v
 
 [Install]
 WantedBy=multi-user.target

@@ -1,26 +1,48 @@
 #!/bin/bash
+set -e
 
-if [[ ! -f "production.env" ]]; then
-  cp ./example.env production.env
+INSTALL_PATH="/var/lib/zercurity"
+ENV_FILE="$INSTALL_PATH/production.env"
+SYSTEM_SERVICE="/etc/systemd/system/zercurity.service"
+
+if [[ ! -d "$INSTALL_PATH" ]]; then
+  echo "Installing Zercurity to: $INSTALL_PATH"
+  sudo mkdir -p "$INSTALL_PATH"
 fi
 
-source ./production.env
+if [[ ! -f "$ENV_FILE" ]]; then
+  echo "Default environment file: $ENV_FILE"
+  sudo cp ./example.env "$ENV_FILE"
+  sudo chmod 600 "$ENV_FILE"
+fi
+
+# Check sudo permissions
+# sudo -l
+
+# shellcheck disable=SC2046
+export $(sudo cat $ENV_FILE | grep -v '#' | awk '/=/ {print $1}')
 
 if [[ -z "${ZERCURITY_DOMAIN}" ]]; then
   echo "The environment variable \"ZERCURITY_DOMAIN\" is not set.
 A domain name is required in order to continue. e.g. zercurity.local.
 Please enter one now .."
   read -r ZERCURITY_DOMAIN
-  echo "ZERCURITY_DOMAIN=$ZERCURITY_DOMAIN" >> ./production.env
+  export ZERCURITY_DOMAIN=$ZERCURITY_DOMAIN
+  echo "ZERCURITY_DOMAIN=$ZERCURITY_DOMAIN" | sudo tee -a "$ENV_FILE"
 fi
 
-export ZERCURITY_DOMAIN=$ZERCURITY_DOMAIN
 
 echo "Starting up as \"$ZERCURITY_DOMAIN\" .."
 
-mkdir -p "certs/$ZERCURITY_DOMAIN/"
-mkdir -p "data/backend/download.$ZERCURITY_DOMAIN/"
-mkdir -p "data/postgres/"
+sudo mkdir -p "$INSTALL_PATH/certs/$ZERCURITY_DOMAIN/"
+sudo mkdir -p "$INSTALL_PATH/data/backend/download.$ZERCURITY_DOMAIN/"
+sudo mkdir -p "$INSTALL_PATH/data/postgres/"
+
+if [[ ! -f "$SYSTEM_SERVICE" ]]; then
+  sudo cp zercurity.service "$SYSTEM_SERVICE"
+  sudo systemctl daemon-reload
+  sudo systemctl enable zercurity
+fi
 
 sudo -- sh -c "echo \"127.0.0.1 $ZERCURITY_DOMAIN app.$ZERCURITY_DOMAIN api.$ZERCURITY_DOMAIN download.$ZERCURITY_DOMAIN\" >> /etc/hosts"
 
