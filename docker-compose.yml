@@ -5,7 +5,7 @@ services:
     image: ghcr.io/zercurity/backend:latest
     hostname: backend.$ZERCURITY_DOMAIN
     env_file:
-    - production.env
+    - /var/lib/zercurity/production.env
     links:
     - postgres
     depends_on:
@@ -24,7 +24,7 @@ services:
     image: ghcr.io/zercurity/frontend:latest
     hostname: frontend.$ZERCURITY_DOMAIN
     env_file:
-    - production.env
+    - /var/lib/zercurity/production.env
     networks:
     - zercurity
   postgres:
@@ -37,7 +37,7 @@ services:
     - PGDATA=/var/lib/postgresql/data/zercurity
     hostname: postgres.$ZERCURITY_DOMAIN
     env_file:
-    - production.env
+    - /var/lib/zercurity/production.env
     volumes:
     - postgres:/var/lib/postgresql/data
     networks:
@@ -47,7 +47,7 @@ services:
     image: ghcr.io/zercurity/nginx:latest
     hostname: $ZERCURITY_DOMAIN
     env_file:
-    - production.env
+    - /var/lib/zercurity/production.env
     ports:
     - "80:80"
     - "443:443"
@@ -72,7 +72,7 @@ services:
     image: ghcr.io/zercurity/migrations:latest
     hostname: migrations.$ZERCURITY_DOMAIN
     env_file:
-    - production.env
+    - /var/lib/zercurity/production.env
     links:
     - postgres
     depends_on:
@@ -84,7 +84,7 @@ services:
     image: ghcr.io/zercurity/scheduler:latest
     hostname: scheduler.$ZERCURITY_DOMAIN
     env_file:
-    - production.env
+    - /var/lib/zercurity/production.env
     depends_on:
     - redis
     networks:
@@ -96,7 +96,7 @@ services:
     image: ghcr.io/zercurity/workers:latest
     hostname: workers.$ZERCURITY_DOMAIN
     env_file:
-    - production.env
+    - /var/lib/zercurity/production.env
     depends_on:
     - scheduler
     networks:
@@ -109,12 +109,16 @@ services:
     restart: on-failure
     image: ghcr.io/zercurity/mailer:latest
     hostname: mailer.$ZERCURITY_DOMAIN
+    env_file:
+      - /var/lib/zercurity/production.env
     networks:
     - zercurity
   redis:
     restart: on-failure
     image: ghcr.io/zercurity/redis:latest
     hostname: redis.$ZERCURITY_DOMAIN
+    env_file:
+      - /var/lib/zercurity/production.env
     networks:
     - zercurity
 networks:

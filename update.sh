@@ -49,13 +49,17 @@ fi
 
 echo "Updating containers .."
 
-sudo docker-compose --env-file $ENV_FILE  pull
+sudo docker-compose --env-file $ENV_FILE pull
 
 if ( systemctl is-enabled --quiet zercurity ); then
-  echo "Restarting Zercurity."
+  echo "Restarting Zercurity .."
   sudo systemctl restart zercurity
 else
   echo "Zercurity service not available. Please restart manually.
+  "
+  echo "sudo systemctl restart zercurity"
+  echo "
+  or
   "
   echo "sudo docker-compose --env-file $ENV_FILE up"
 fi
