@@ -24,6 +24,20 @@ if ! ( command -v git > /dev/null ); then
   exit 1
 fi
 
+# shellcheck disable=SC2046
+export $(sudo cat $ENV_FILE | grep -v '#' | awk '/=/ {print $1}')
+
+# Check folders exist
+if [[ ! -d "$INSTALL_PATH/certs/$ZERCURITY_DOMAIN/" ]]; then
+  sudo mkdir -p "$INSTALL_PATH/certs/$ZERCURITY_DOMAIN/"
+fi
+if [[ ! -d "$INSTALL_PATH/secrets/$ZERCURITY_DOMAIN/" ]]; then
+  sudo mkdir -p "$INSTALL_PATH/secrets/$ZERCURITY_DOMAIN/"
+fi
+if [[ ! -d "$INSTALL_PATH/data/backend/download.$ZERCURITY_DOMAIN/" ]]; then
+  sudo mkdir -p "$INSTALL_PATH/data/backend/download.$ZERCURITY_DOMAIN/"
+fi
+
 echo "Updating local files .."
 
 git pull

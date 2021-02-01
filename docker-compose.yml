@@ -19,6 +19,10 @@ services:
     volumes:
     - certs:/var/task/run/libs/resources/certs
     - downloads:/tmp/zercurity
+    - type: volume
+      source: secrets
+      target: /opt/secrets
+      read_only: true
   frontend:
     restart: always
     image: ghcr.io/zercurity/frontend:latest
@@ -66,7 +70,10 @@ services:
           - api.$ZERCURITY_DOMAIN
     volumes:
     - certs:/etc/ssl/$ZERCURITY_DOMAIN
-    - downloads:/usr/share/nginx/html/download
+    - type: colume
+      source: downloads
+      target: /usr/share/nginx/html/download
+      read_only: true
   migrations:
     restart: on-failure
     image: ghcr.io/zercurity/migrations:latest
@@ -130,6 +137,12 @@ volumes:
       type: 'none'
       o: 'bind'
       device: /var/lib/zercurity/certs/$ZERCURITY_DOMAIN
+  secrets:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: /var/lib/zercurity/secrets/$ZERCURITY_DOMAIN
   downloads:
     driver: local
     driver_opts:

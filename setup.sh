@@ -41,6 +41,7 @@ fi
 echo "Starting up as \"$ZERCURITY_DOMAIN\" .."
 
 sudo mkdir -p "$INSTALL_PATH/certs/$ZERCURITY_DOMAIN/"
+sudo mkdir -p "$INSTALL_PATH/secrets/$ZERCURITY_DOMAIN/"
 sudo mkdir -p "$INSTALL_PATH/data/backend/download.$ZERCURITY_DOMAIN/"
 sudo mkdir -p "$INSTALL_PATH/data/postgres/"
 
