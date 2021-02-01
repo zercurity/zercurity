@@ -38,7 +38,7 @@ Zercurity should now be accessible via `https://app.zercurity.local` or the prov
 #### Getting started
 
 To create your initial user account you can either register a new account via the app. Or if
-you want to skip the initial email check use this command to generate a signup like:
+you want to skip the initial email check use this command to generate a signup link:
 
 ```
 docker exec zercurity_backend_1 ./zercurity --register --name "Your name" --email "your@email.com"
