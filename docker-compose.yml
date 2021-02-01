@@ -70,7 +70,7 @@ services:
           - api.$ZERCURITY_DOMAIN
     volumes:
     - certs:/etc/ssl/$ZERCURITY_DOMAIN
-    - type: colume
+    - type: volume
       source: downloads
       target: /usr/share/nginx/html/download
       read_only: true
