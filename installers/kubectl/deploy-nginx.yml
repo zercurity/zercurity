@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: zercurity
+  labels:
+    app: zercurity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      volumes:
+      - name: nfs
+        persistentVolumeClaim:
+          claimName: nfs
+      containers:
+        - name: nginx
+          image: ghcr.io/zercurity/nginx:latest
+          imagePullPolicy: Always
+          envFrom:
+          - configMapRef:
+              name: config
+          ports:
+          - containerPort: 80
+          - containerPort: 443
+          volumeMounts:
+          - name: nfs
+            mountPath: /etc/ssl/zercurity.local
+            subPath: certs
+          - name: nfs
+            mountPath: /usr/share/nginx/html/download
+            readOnly: true
+            subPath: downloads

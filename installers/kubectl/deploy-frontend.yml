@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: zercurity
+  labels:
+    app: zercurity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: ghcr.io/zercurity/frontend:latest
+          imagePullPolicy: Always
+          envFrom:
+          - configMapRef:
+              name: config
+          ports:
+          - containerPort: 80

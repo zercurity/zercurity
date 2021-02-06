@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mailer
+  namespace: zercurity
+  labels:
+    app: zercurity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mailer
+  template:
+    metadata:
+      name: mailer
+      labels:
+        app: mailer
+    spec:
+      containers:
+        - name: mailer
+          image: ghcr.io/zercurity/mailer:latest
+          imagePullPolicy: Always
+          envFrom:
+          - configMapRef:
+              name: config

@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: zercurity
+  labels:
+    app: zercurity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      volumes:
+      - name: postgres
+        persistentVolumeClaim:
+          claimName: postgres
+      containers:
+        - name: backend
+          image: ghcr.io/zercurity/postgres:latest
+          imagePullPolicy: Always
+          env:
+          - name: POSTGRES_USER
+            valueFrom:
+              configMapKeyRef:
+                name: config
+                key: DB_USERNAME
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: secrets
+                key: DB_PASSWORD
+          - name: POSTGRES_DB
+            valueFrom:
+              configMapKeyRef:
+                name: config
+                key: DB_DATABASE
+          - name: PGDATA
+            value: /var/lib/postgresql/data/zercurity
+          ports:
+          - containerPort: 5432
+          volumeMounts:
+          - name: postgres
+            mountPath: /var/lib/postgresql/data

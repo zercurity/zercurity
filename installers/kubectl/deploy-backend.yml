@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: zercurity
+  labels:
+    app: zercurity
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      name: backend
+      labels:
+        app: backend
+    spec:
+      volumes:
+      - name: nfs
+        persistentVolumeClaim:
+          claimName: nfs
+      containers:
+        - name: backend
+          image: ghcr.io/zercurity/backend:latest
+          imagePullPolicy: Always
+          env:
+          - name: PYTHONPATH
+            value: ".:/opt/python:/var/runtime:/var/task/run"
+          - name: PYTHONUNBUFFERED
+            value: "0"
+          envFrom:
+          - configMapRef:
+              name: config
+          - secretRef:
+              name: secrets
+          ports:
+          - containerPort: 5000
+          volumeMounts:
+          - name: nfs
+            readOnly: true
+            mountPath: /var/task/run/libs/resources/certs
+            subPath: certs
+          - name: nfs
+            mountPath: /tmp/zercurity
+            subPath: downloads

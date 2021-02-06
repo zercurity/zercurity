@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config
+  namespace: zercurity
+data:
+  HOSTNAME: zercurity.local
+  PROVIDER: local
+# Any sensitive configuration options can be stored within the sc-config.yml configuration file.
+# This is an example and should be changed.
+# SECRET: R2u3FfUpTjf8NY6Pn5gaMbkmUBqFsZfj
+  STAGE: prod
+
+  DB_HOSTNAME: postgres
+  DB_DATABASE: zercurity
+  DB_USERNAME: zercurity
+
+# Any sensitive configuration options can be stored within the sc-config.yml configuration file.
+# This is an example and should be changed.
+# DB_PASSWORD: zercurity
+
+  STORAGE_PATH: /tmp/zercurity
+
+# Please see example.env in the root of the project for more configuration options
+# cat ../example.env
+
+# ENROLL_DARWIN_DEVELOPER_KEY:
+# ENROLL_DARWIN_DEVELOPER_CER:
+# ENROLL_DARWIN_SIGNATORY_KEY:
+# ENROLL_DARWIN_SIGNATORY_CER:
+
+# ENROLL_LINUX_SIGNATORY_PEM:
+
+# ENROLL_WINDOWS_SIGNATORY_PEM:
+
+# STRIPE_API_KEY:
+# VIRUS_TOTAL_API_KEY:
+
+# LETSENCRYPT: False
+# LETSENCRYPT_EMAIL: admin@zercurity.com
+# LETSENCRYPT_METHOD: http
+
+# MAILER_HOSTNAME=mailer
+# MAILER_PORT=587
+# MAILER_TLS=True
+# MAILER_USERNAME=
+# MAILER_PASSWORD=
+# MAILER_FROM=

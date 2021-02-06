@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrations
+  namespace: zercurity
+spec:
+  template:
+    spec:
+      containers:
+        - name: migrations
+          image: ghcr.io/zercurity/migrations:latest
+          imagePullPolicy: Always
+          env:
+          - name: PYTHONPATH
+            value: ".:/opt/python:/var/runtime:/var/task/run"
+          - name: PYTHONUNBUFFERED
+            value: "0"
+          envFrom:
+          - configMapRef:
+              name: config
+          - secretRef:
+              name: secrets
+      restartPolicy: Never
+  backoffLimit: 4

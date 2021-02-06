@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scheduler
+  namespace: zercurity
+  labels:
+    app: zercurity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scheduler
+  template:
+    metadata:
+      labels:
+        app: scheduler
+    spec:
+      volumes:
+      - name: nfs
+        persistentVolumeClaim:
+          claimName: nfs
+      containers:
+        - name: scheduler
+          image: ghcr.io/zercurity/scheduler:latest
+          imagePullPolicy: Always
+          envFrom:
+          - configMapRef:
+              name: config
+          - secretRef:
+              name: secrets
+          volumeMounts:
+          - name: nfs
+            readOnly: true
+            mountPath: /var/task/run/libs/resources/certs
+            subPath: certs
