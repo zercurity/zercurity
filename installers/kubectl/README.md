@@ -28,7 +28,7 @@ The only three things I would change for the initial configuration are the appli
 
 ```
 kubectl apply -n zercurity -f cm-config.yaml
-kubectl apply -n zercurity -f sc-config.yaml
+kubectl apply -n zercurity -f secret-config.yaml
 ```
 
 ### Applying PersistentVolumeClaims
@@ -58,7 +58,7 @@ kubectl -n zercurity get pvc
 Now for the fun part. Once the volumes are showing they've been successfully `Bound`. You can now deploy Zercurity.
 
 ```
-kubectl apply -n zercurity -f dp-*.yaml
+kubectl apply -n zercurity -f deploy-*.yaml
 kubectl -n zercurity get deploy
 kubectl -n zercurity get pods
 ```
