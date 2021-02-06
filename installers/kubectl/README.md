@@ -46,7 +46,7 @@ kubectl -n zercurity get pv
 
 Once the `PersistentVolume` has been created. Make sure the status is `Bound`. We can now create our `PersistentVolumeClaims`.
 
-This command will also create the PVC for our database server too. Feel free to resize as needed. Though we'd recommend using something like [https://google.com|pgo] for database management.
+This command will also create the PVC for our database server too. Feel free to resize as needed. Though we'd recommend using something like [pgo](https://zercurity.medium.com/highly-available-and-scalable-postgresql-on-kubernetes-k8s-with-the-crunchy-postgresql-operator-cdf3a4da66ec) for database management.
 
 ```
 kubectl apply -n zercurity -f pvc-*.yaml
