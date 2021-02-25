@@ -15,7 +15,7 @@ Zercurity leverages a number of open-source projects including [Osquery](https:/
 [Application whitelisting](https://docs.zercurity.com/santa/index.html), 
 [Issue & risk tracking](https://docs.zercurity.com/overview/issues.html), 
 [Investigations](https://docs.zercurity.com/), 
-[Workflows (SAM)](https://docs.zercurity.com/overview/workflows/index.html), 
+[Workflows (SOAR)](https://docs.zercurity.com/overview/workflows/index.html), 
 [File retrieval](https://zercurity.medium.com/file-retrieval-with-osquery-using-carves-on-zercurity-9b157f7c0801), 
 [User focused security](https://zercurity.medium.com/managing-compliance-with-osquery-for-local-remote-workers-4fbf7c3dc406), 
 [Applications & Packages](https://docs.zercurity.com/inventory/applications.html),

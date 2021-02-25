@@ -22,7 +22,7 @@ kubectl create ns zercurity
 
 ### Applying ConfigMaps and Secrets
 
-There are two configuration files. The non-sensitive configuration parameters are in `cm-config.yaml`, and the secrets are stored within `sc-config.yaml`.
+There are two configuration files. The non-sensitive configuration parameters are in `cm-config.yaml`, and the secrets are stored within `secret-config.yaml`.
 
 The only three things I would change for the initial configuration are the application domain name `ZERCURITY_DOMAIN` (which can be changed at anytime). I'd also change the application secret and database password.
 
@@ -33,7 +33,7 @@ kubectl apply -n zercurity -f secret-config.yaml
 
 ### Applying PersistentVolumeClaims
 
-We've currently designed the deployment to work around an NFS server. The NFS server is used to store and serve the installation binaries via the NGINX pod. Which is configured to be `readOnly` and backend pods will generate and store the installer binaries to these NFS server.
+We've currently designed the deployment to work around an NFS server. The NFS server is used to store and serve the installation binaries via the NGINX pod. Which is configured to be `readOnly` and backend pods will generate and store the installer binaries to the NFS server.
 
 If your kubernetes cluster supports shared PVCs you can just use a shared PVC instead. 
 
@@ -78,13 +78,13 @@ kubectl -n zercurity get svc
 
 When the postgres container successfully comes up. It maybe the case that other containers are in a `CrashBackOff` state. This is because database hasn't been configured.
 
-We can fix this by running this migrations job. This needs to be run post an update.
+We can fix this by running this migrations job. This needs to be run post any update.
 
 ```
 kubectl apply -n zercurity -f job-*.yaml
 ```
 
-This will now initialise the database. Post the migrations job running. It maye take the jobs a few more minutes to come up. However, once they're all in the running state you'll be able to visit the app via the LoadBalancer's IP address or hostname if you've already configured your DNS.
+This will now initialise the database. Post the migrations job running. It maybe take the jobs a few more minutes to come up. However, once they're all in the running state you'll be able to visit the app via the LoadBalancer's IP address or hostname if you've already configured your DNS.
 
 ### Accessing the web application
 
