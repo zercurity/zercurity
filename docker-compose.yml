@@ -18,7 +18,7 @@ services:
     - PYTHONUNBUFFERED=0
     volumes:
     - certs:/var/task/run/libs/resources/certs
-    - downloads:/tmp/zercurity
+    - backend:/tmp/zercurity
     - type: volume
       source: secrets
       target: /opt/secrets
@@ -71,8 +71,8 @@ services:
     volumes:
     - certs:/etc/ssl/$ZERCURITY_DOMAIN
     - type: volume
-      source: downloads
-      target: /usr/share/nginx/html/download
+      source: backend
+      target: /usr/share/nginx/html/backend
       read_only: true
   migrations:
     restart: on-failure
@@ -98,6 +98,12 @@ services:
     - zercurity
     environment:
     - PYTHONUNBUFFERED=0
+    volumes:
+    - certs:/var/task/run/libs/resources/certs
+    - type: volume
+      source: backend
+      target: /tmp/zercurity
+      read_only: true
   workers:
     restart: on-failure
     image: ghcr.io/zercurity/workers:latest
@@ -110,6 +116,12 @@ services:
     - zercurity
     environment:
     - PYTHONUNBUFFERED=0
+    volumes:
+    - certs:/var/task/run/libs/resources/certs
+    - type: volume
+      source: backend
+      target: /tmp/zercurity
+      read_only: true
   # https://hub.docker.com/r/namshi/smtp/
   # Provides support for SES, GMail etc as an email forwarder
   mailer:
@@ -143,12 +155,12 @@ volumes:
       type: 'none'
       o: 'bind'
       device: /var/lib/zercurity/secrets/$ZERCURITY_DOMAIN
-  downloads:
+  backend:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: /var/lib/zercurity/data/backend/download.$ZERCURITY_DOMAIN
+      device: /var/lib/zercurity/data/backend
   postgres:
     driver: local
     driver_opts:
