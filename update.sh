@@ -26,9 +26,9 @@ if ! ( command -v pip3 > /dev/null && pip3 list --format columns | grep docker-c
   echo "!! WARNING !!"
   echo "Docker compose is installed. However, not using pip3."
   echo "Please ensure you are using the latest version of docker-compose
-asearlier versions do not support the --env-file parameter."
+as earlier versions do not support the --env-file parameter."
   echo "If you receive help information from the docker-compose command
-  then it is most likely out-of-date."
+then it is most likely out-of-date."
   echo ""
   echo "sudo apt remove docker-compose"
   echo "sudo pip3 install docker-compose"
