@@ -1,6 +1,15 @@
 ## Release notes
 
 
+### 02/14/2021 (ae7648b)
+
+* Added Identity and access management (IAM) to Zercurity.
+* Added additional configuration parameters for on-prem deployments to manage SMTP mailer settings
+* Added community support for Kubernetes.
+* Added support for Osquery up to 4.6.0.
+* Improved the Windows installer update system. There were a few cases when downgrading to prior versions the installer wouldn’t handle database migrations and configuration changes correctly.
+* Frontend package dependencies have been updated to their latest versions.
+
 #### 01/11/2020 (575dff9)
 
 * The Zercurity frontend now loads UI components in chunks to reduce the landing size from 6MB to 2MB.
@@ -40,8 +49,7 @@
 
 * Users email address now returned in user related JSON sub docs. This can be disabled as per GDPR.
 
-30/08/2020 (f900e53)
-====================
+#### 30/08/2020 (f900e53)
 
 * Fixed the Santa installer to improve both the install time and user experience during a re-install.
 * Fixed an issue when when enrolling an asset on a new team. Zercurity would use the old team.
