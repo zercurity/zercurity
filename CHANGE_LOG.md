@@ -1,7 +1,24 @@
 ## Release notes
 
+#### 13/05/2021 (4e1dc77)
 
-### 02/14/2021 (ae7648b)
+* Zercurity investigations is now in Alpha
+* Added a new search engine across both your Zercurity account and Zercurity's new data services platform
+* Added Markdown formatting for generated reports
+* Added an Osquery flag checker to prevent performance issues when overriding the defaults
+* Fixed an issue when manually running compliance checks. Zercurity wouldn't use overridden configurations
+* Fixed several UI issues when generating IAM policies
+* Fixed several IAM nesting issues within the UI when inheriting from other policies
+* Fixed a UI issue with the process explorer results not being rendered
+* Fixed a UI issue with the workflow execution states not being correctly rendered post execution
+* Fixed trailing whitespace for text inputs
+
+*On-prem*
+* Improved data services sync times
+* Added sync support for external IP address enrichment
+* Reduced the backend image size by 60%
+
+#### 14/02/2021 (ae7648b)
 
 * Added Identity and access management (IAM) to Zercurity.
 * Added additional configuration parameters for on-prem deployments to manage SMTP mailer settings
