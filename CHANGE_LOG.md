@@ -1,5 +1,16 @@
 ## Release notes
 
+#### 28/09/2021 (eeb624a)
+
+* Added support in the GUI for USB device owners
+* Added support in the GUI for the configuration of Google Santa, rule sets and rule configuration. The configuration applies for companies, teams and assets.
+* Prevent duplicate results being ingested upon network retries for ad-hoc Osquery results
+
+*On-prem*
+* Added monitoring for PostgreSQL with Grafana and Prometheus
+* Added device sync with Zercurity data services for device types
+
+
 #### 14/09/2021 (2bd52f6)
 
 * Added User risk alpha based of online data leaks
