@@ -59,6 +59,9 @@ fi
 if [[ ! -d "$INSTALL_PATH/data/grafana/" ]]; then
   sudo mkdir -p "$INSTALL_PATH/data/grafana/"
 fi
+if [[ ! -d "$INSTALL_PATH/data/prometheus/" ]]; then
+  sudo mkdir -p "$INSTALL_PATH/data/prometheus/"
+fi
 
 echo "Updating local files .."
 
