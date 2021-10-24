@@ -1,5 +1,60 @@
 ## Release notes
 
+#### 28/09/2021 (eeb624a)
+
+* Added support in the GUI for USB device owners
+* Added support in the GUI for the configuration of Google Santa, rule sets and rule configuration. The configuration applies for companies, teams and assets.
+* Prevent duplicate results being ingested upon network retries for ad-hoc Osquery results
+
+*On-prem*
+* Added monitoring for PostgreSQL with Grafana and Prometheus
+* Added device sync with Zercurity data services for device types
+
+
+#### 14/09/2021 (2bd52f6)
+
+* Added User risk alpha based of online data leaks
+* Added support for paging on Zercurity data services
+* Added support for Osquery 4.6.0-4.6.9
+* Added support for asset filtering for FIM events
+* Added the ability to remove compliance frameworks
+* Added the ability to remove compliance framework rules
+* Added HTTP/HTTPS as a remote logging endpoint for Zercurity events
+* Added new compliance frameworks for MacOSX 16, Linux distributions and the latest Windows 10 releases
+* Improved CVE reporting for Ubuntu packages
+* Improved compliance reporting for markdown parsing
+* Fixed XAR timestamp package signing for compatibility with some MDM providers
+* Fixed the deprecation of whitelist and blacklist from Google Santa and Osquery
+* Re-write of our Windows update recommendation engine. Zercurity now no longer includes intermediate KB patches
+
+*On-prem*
+* Added support for synchronising Windows updates
+* Added OS release information for synced operating system releases
+* Added package and application data is now synced even if the server isn't licensed
+* Improved package and application sync
+* Improved the default postgres instance params
+* Improved OS vulnerability sync
+* New OS and Windows data added to the Zercurity data services platform
+* Fixed a number of issues relating to the reporting generation based on prior weeks
+
+#### 13/06/2021 (4e1dc77)
+
+* Zercurity investigations is now in Alpha
+* Added a new search engine across both your Zercurity account and Zercurity's new data services platform
+* Added Markdown formatting for generated reports
+* Added an Osquery flag checker to prevent performance issues when overriding the defaults
+* Fixed an issue when manually running compliance checks. Zercurity wouldn't use overridden configurations
+* Fixed several UI issues when generating IAM policies
+* Fixed several IAM nesting issues within the UI when inheriting from other policies
+* Fixed a UI issue with the process explorer results not being rendered
+* Fixed a UI issue with the workflow execution states not being correctly rendered post execution
+* Fixed trailing whitespace for text inputs
+
+*On-prem*
+* Improved data services sync times
+* Added sync support for external IP address enrichment
+* Reduced the backend image size by 60%
+
 #### 13/05/2021 (4e1dc77)
 
 * Zercurity investigations is now in Alpha
