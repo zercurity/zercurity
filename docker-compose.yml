@@ -13,9 +13,6 @@ services:
     - scheduler
     networks:
     - zercurity
-    environment:
-    - PYTHONPATH=.:/opt/python:/var/runtime:/var/task/run
-    - PYTHONUNBUFFERED=0
     volumes:
     - certs:/var/task/run/libs/resources/certs
     - backend:/tmp/zercurity
@@ -46,6 +43,20 @@ services:
     - postgres:/var/lib/postgresql/data
     networks:
     - zercurity
+  postgres_exporter:
+    restart: on-failure
+    image: ghcr.io/zercurity/postgres_exporter:latest
+    hostname: postgres_exporter.$ZERCURITY_DOMAIN
+    environment:
+    - DATA_SOURCE_URI=postgres?sslmode=disable
+    - DATA_SOURCE_USER=$DB_USERNAME
+    - DATA_SOURCE_PASS=$DB_PASSWORD
+    networks:
+    - zercurity
+    links:
+    - postgres
+    depends_on:
+    - postgres
   nginx:
     restart: always
     image: ghcr.io/zercurity/nginx:latest
@@ -68,6 +79,7 @@ services:
           - nginx.$ZERCURITY_DOMAIN
           - app.$ZERCURITY_DOMAIN
           - api.$ZERCURITY_DOMAIN
+          - grafana.$ZERCURITY_DOMAIN
     volumes:
     - certs:/etc/ssl/$ZERCURITY_DOMAIN
     - type: volume
@@ -96,8 +108,6 @@ services:
     - redis
     networks:
     - zercurity
-    environment:
-    - PYTHONUNBUFFERED=0
     volumes:
     - certs:/var/task/run/libs/resources/certs
     - type: volume
@@ -114,8 +124,6 @@ services:
     - scheduler
     networks:
     - zercurity
-    environment:
-    - PYTHONUNBUFFERED=0
     volumes:
     - certs:/var/task/run/libs/resources/certs
     - type: volume
@@ -138,6 +146,30 @@ services:
     hostname: redis.$ZERCURITY_DOMAIN
     env_file:
       - /var/lib/zercurity/production.env
+    networks:
+    - zercurity
+  prometheus:
+    restart: on-failure
+    image: ghcr.io/zercurity/prometheus:latest
+    hostname: prometheus.$ZERCURITY_DOMAIN
+    links:
+    - postgres_exporter
+    - nginx
+    networks:
+    - zercurity
+    volumes:
+    - prometheus:/prometheus-data
+  grafana:
+    restart: on-failure
+    image: ghcr.io/zercurity/grafana:latest
+    hostname: grafana.$ZERCURITY_DOMAIN
+    links:
+    - prometheus
+    depends_on:
+    - prometheus
+    environment:
+    - GF_SERVER_ROOT_URL=https://grafana.$ZERCURITY_DOMAIN
+    - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-zercurity}
     networks:
     - zercurity
 networks:
@@ -167,3 +199,15 @@ volumes:
       type: 'none'
       o: 'bind'
       device: /var/lib/zercurity/data/postgres
+  prometheus:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: /var/lib/zercurity/data/prometheus
+  grafana:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: /var/lib/zercurity/data/grafana

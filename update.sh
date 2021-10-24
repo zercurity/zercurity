@@ -56,6 +56,9 @@ fi
 if [[ ! -d "$INSTALL_PATH/data/backend/download.$ZERCURITY_DOMAIN/" ]]; then
   sudo mkdir -p "$INSTALL_PATH/data/backend/download.$ZERCURITY_DOMAIN/"
 fi
+if [[ ! -d "$INSTALL_PATH/data/grafana/" ]]; then
+  sudo mkdir -p "$INSTALL_PATH/data/grafana/"
+fi
 
 echo "Updating local files .."
 

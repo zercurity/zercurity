@@ -49,12 +49,19 @@ if [[ -z "${SECRET}" ]]; then
   echo "SECRET=$ZERCURITY_SECRET" | sudo tee -a "$ENV_FILE"
 fi
 
+if [[ -z "${GRAFANA_ADMIN_PASSWORD}" ]]; then
+  GRAFANA_PASSWORD=$(tr -dc 'a-zA-Z0-9' < /dev/urandom | fold -w 16 | head -n 1)
+  export "$GRAFANA_ADMIN_PASSWORD"="$GRAFANA_PASSWORD"
+  echo "$GRAFANA_ADMIN_PASSWORD=$GRAFANA_PASSWORD" | sudo tee -a "$ENV_FILE"
+fi
+
 echo "Starting up as \"$ZERCURITY_DOMAIN\" .."
 
 sudo mkdir -p "$INSTALL_PATH/certs/$ZERCURITY_DOMAIN/"
 sudo mkdir -p "$INSTALL_PATH/secrets/$ZERCURITY_DOMAIN/"
 sudo mkdir -p "$INSTALL_PATH/data/backend/download.$ZERCURITY_DOMAIN/"
 sudo mkdir -p "$INSTALL_PATH/data/postgres/"
+sudo mkdir -p "$INSTALL_PATH/data/grafana/"
 
 if [[ ! -f "$SYSTEM_SERVICE" ]]; then
   sudo cp zercurity.service "$SYSTEM_SERVICE"
@@ -62,7 +69,7 @@ if [[ ! -f "$SYSTEM_SERVICE" ]]; then
   sudo systemctl enable zercurity
 fi
 
-sudo -- sh -c "echo \"127.0.0.1 $ZERCURITY_DOMAIN app.$ZERCURITY_DOMAIN api.$ZERCURITY_DOMAIN download.$ZERCURITY_DOMAIN\" >> /etc/hosts"
+sudo -- sh -c "echo \"127.0.0.1 $ZERCURITY_DOMAIN app.$ZERCURITY_DOMAIN api.$ZERCURITY_DOMAIN download.$ZERCURITY_DOMAIN  grafana.$ZERCURITY_DOMAIN\" >> /etc/hosts"
 
 ./update.sh
 
