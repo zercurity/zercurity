@@ -1,5 +1,24 @@
 ## Release notes
 
+#### 03/02/2022 (c39c9cc)
+
+* Added support for ARM on Mac and Linux including support for AWS Graviton
+* Added Slack manifest for custom integrations
+* Added support for docker containers
+* Added support for custom Slack action_ids in workflows
+* Added report trend graphs now work without 12 months of data
+* Added PDF support for issues to print and export open issues and resolved components
+* Added the ability to toggle open and all issue components
+* Added markdown rendering support for workflow text substitution
+* Added the ability to manually create weekly reports
+* Added support to import Osquery packs into compliance frameworks
+* Added support to download Apple MDM configuration files. Rather than fetching them from Zercurity own repository
+* Upgraded investigations interface and interactive workbench components
+* Removed Google analytics
+* Improved Windows hotfix KB processing
+* Fixed an issue when removing old Mac Osquery kext extensions being flagged to the user
+
+
 #### 28/09/2021 (eeb624a)
 
 * Added support in the GUI for USB device owners
