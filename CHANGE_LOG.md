@@ -1,5 +1,19 @@
 ## Release notes
 
+
+#### 12/03/2022 (1a06f2d)
+
+* Added initial support for blocking USB devices via Google Santa
+* Added support for archiving assets
+* Added new search API with the ability to provide boolean expressions in search queries
+* Added new issues risk management pane. This shows a comprehensive list of acknowledged issue components
+* Added additional workflow examples
+* Added support for external AWS calls within workflows
+* Revamped network events to show both the process execution and external hostname
+* Improved render performance for the process execution explorer
+* Migrated error handling to new sentry endpoint
+
+
 #### 03/02/2022 (c39c9cc)
 
 * Added support for ARM on Mac and Linux including support for AWS Graviton
