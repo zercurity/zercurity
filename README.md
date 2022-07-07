@@ -2,7 +2,7 @@
 
 Zercurity provides cybersecurity as a service to help businesses identify and close risks, ensure compliance and provide infrastructure intelligence on an ongoing and measurable basis.
 
-Zercurity leverages a number of open-source projects including [Osquery](https://github.com/osquery/osquery) and [Google's Santa](https://github.com/google/santa) to provide a single platform for 
+Zercurity leverages a number of open-source projects including [Osquery](https://github.com/osquery/osquery), [Steampipe](https://steampipe.io) and [Google's Santa](https://github.com/google/santa) to provide a single platform for 
 [Asset inventory management](https://docs.zercurity.com/inventory/assets/index.html), 
 [Patch management](https://docs.zercurity.com/inventory/updates.html), 
 [Vulnerability assessments](https://docs.zercurity.com/inventory/vulnerabilities.html), 
