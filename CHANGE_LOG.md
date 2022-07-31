@@ -1,5 +1,26 @@
 ## Release notes
 
+#### 31/05/2022 (eeb498f)
+
+* Added support for Steampipe including compliance checks and infrastructure discovery.
+* Added a new authentication system
+* Added new executive reporting and vulnerability reporting
+* Added initial support for domain visibility, vulnerability and compliance checks
+* Added initial support for user persona checks
+* Added integration support for: Amazon AWS, Google GCP, Microsoft Azure, Kubernetes, Vmware Vsphere, Digital Ocean, Zoom
+* Added support for discovered assets when connecting cloud environments.
+* Added and improved support for data services mac address lookup
+* Added filter for discovered assets to show only cloud assets
+* Updated frontend packages and upgraded to BlueprintJS 4
+* Updated vulnerability reporting for assets, includes several fixes including better accuracy
+* Updated docker_info query to every 3 hours
+* Fixed support for longer container names
+* Fixed UI issue when hovering over geo location events
+* Fixed certifications grid for Safari web browser
+* Fixed SQL formatting error when SQL had unsupported SQL
+* Fixed a logging error when removing a compliance namespace
+* Fixed enrollment CSS issue for code examples
+
 
 #### 12/03/2022 (1a06f2d)
 
