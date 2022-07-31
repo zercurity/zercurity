@@ -129,7 +129,19 @@ services:
     - type: volume
       source: backend
       target: /tmp/zercurity
-      read_only: true
+      read_only: true  
+  steampipe:
+    restart: on-failure
+    image: ghcr.io/zercurity/steampipe:latest
+    hostname: steampipe.$ZERCURITY_DOMAIN
+    env_file:
+    - /var/lib/zercurity/production.env
+    links:
+    - redis
+    depends_on:
+    - redis
+    networks:
+    - zercurity
   # https://hub.docker.com/r/namshi/smtp/
   # Provides support for SES, GMail etc as an email forwarder
   mailer:
