@@ -120,6 +120,9 @@ services:
     hostname: workers.$ZERCURITY_DOMAIN
     env_file:
     - /var/lib/zercurity/production.env
+    deploy:
+      mode: replicated
+      replicas: 3
     depends_on:
     - scheduler
     networks:
