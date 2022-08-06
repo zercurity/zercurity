@@ -132,7 +132,7 @@ services:
     - type: volume
       source: backend
       target: /tmp/zercurity
-      read_only: true  
+      read_only: true
   steampipe:
     restart: on-failure
     image: ghcr.io/zercurity/steampipe:latest
