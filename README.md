@@ -33,7 +33,7 @@ Once installed. Run `./setup.sh` this simply configures the `production.env` fil
 ./setup.sh
 ```
 
-Zercurity should now be accessible via `https://app.zercurity.local` or the provided domain.
+Zercurity should now be accessible via `https://app.zercurity.local` or the provided domain. **You will also need to visit `https://api.zercurity.local` and `https://download.zercurity.local` when using a self signed certificate.**
 
 #### Getting started
 
