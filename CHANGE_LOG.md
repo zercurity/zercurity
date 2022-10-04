@@ -1,5 +1,26 @@
 ## Release notes
 
+#### 03/10/2022 (6d28a4e)
+
+* Added Windows defender smart screen warning to the enrolled screen.
+* Added A new wizard to create Osquery carves, rather than having to run a query.
+* Added A changes view to issues. To see changes mapped across multiple tracked issues.
+* Added Investigations now has better support for DNS and SSL results.
+* Added A permissions view for a given user.
+* Added A new export data wizard for CSV, JSON and XML.
+* Added support for custom branding.
+* Added Extended Security Maintenance (ESM) for ubuntu repositories to package scanner.
+* Updated vulnerability support for RHEL distributions.
+* Updated Improved the policy editor for IAM rules.
+* Updated The IAM builder now supports multiple statements.
+* Updated Search now only queries the local system. A switch has been added to search external data.
+* Updated Issue changes are now sent be email by default.
+* Updated Weekly reports are now no longer sent if there are no active assets.
+* Updated dashboards to show critical events, rather than them being grouped together as high priority.
+* Fixed an issue where tickets would be re-opened for archived assets
+* Fixed an issue with the RHEL installer on older init.d based systems not removing a symlink post rm.
+
+
 #### 31/05/2022 (eeb498f)
 
 * Added support for Steampipe including compliance checks and infrastructure discovery.
