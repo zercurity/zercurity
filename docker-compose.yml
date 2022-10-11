@@ -48,7 +48,7 @@ services:
     image: ghcr.io/zercurity/postgres_exporter:latest
     hostname: postgres_exporter.$ZERCURITY_DOMAIN
     environment:
-    - DATA_SOURCE_URI=postgres?sslmode=disable
+    - DATA_SOURCE_URI=$DB_HOSTNAME?sslmode=disable
     - DATA_SOURCE_USER=$DB_USERNAME
     - DATA_SOURCE_PASS=$DB_PASSWORD
     networks:
