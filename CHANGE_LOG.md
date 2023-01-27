@@ -1,5 +1,9 @@
 ## Release notes
 
+#### 27/01/2023 (07c195b)
+
+* Added support for POST/PUT of encoded payloads (gzip, deflate)
+
 #### 03/10/2022 (6d28a4e)
 
 * Added Windows defender smart screen warning to the enrolled screen.
