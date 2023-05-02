@@ -1,3 +1,7 @@
+## Zercurity has been aquired by JumpCloud
+
+This repository will no longer be maintained or updated. You can [Read more](https://jumpcloud.com/press/jumpcloud-acquires-zercurity) about the acquisition. Or signup to JumpCloud [today](https://console.jumpcloud.com).
+
 ## Zercurity
 
 Zercurity provides cybersecurity as a service to help businesses identify and close risks, ensure compliance and provide infrastructure intelligence on an ongoing and measurable basis.
